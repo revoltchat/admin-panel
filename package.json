@@ -1,27 +1,45 @@
 {
-  "name": "revolt-admin-panel",
+  "name": "revolt-swiss-army-knife",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "nodemon --exec \"bun run build:server && NODE_EXTRA_CA_CERTS=$PWD/revolt.crt node server/.build/server/index.js\" -e ts --watch server",
+    "build": "bun run build:server && bun run build:client",
+    "build:server": "cd server && (rm -r .build ||:) && tsc && cd ..",
+    "build:client": "next build",
+    "start": "NODE_EXTRA_CA_CERTS=$PWD/revolt.crt NODE_ENV=production node server/.build/server/index.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "@colors/colors": "^1.6.0",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/themes": "^2.0.3",
+    "@tensorflow/tfjs-node": "^4.17.0",
+    "dayjs": "^1.11.10",
+    "lru-cache": "^10.2.0",
+    "mongodb": "^6.3.0",
+    "next": "14.0.4",
+    "node-cron": "^3.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.4"
+    "redis": "^4.6.13",
+    "revolt-api": "^0.6.9",
+    "revolt.js": "^7.0.0-beta.11",
+    "scikitjs": "^1.24.0",
+    "string-comparison": "^1.3.0",
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
+    "@types/node-cron": "^3.0.11",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "nodemon": "^3.0.3",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.4"
+    "typescript": "^5"
   }
 }

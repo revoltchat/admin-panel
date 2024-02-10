@@ -1,0 +1,8 @@
+.main {
+  backdrop-filter: blur(24px);
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/maxim-berg-kE8-rUKjtQU-unsplash.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

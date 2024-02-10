@@ -1,6 +1,19 @@
+import {
+  bgBlue,
+  bgGreen,
+  bgRed,
+  blue,
+  gray,
+  red,
+  yellow,
+} from "@colors/colors";
+import { readFile, readdir } from "fs/promises";
 import { createServer } from "http";
-import { parse } from "url";
 import next from "next";
+import { resolve } from "path";
+import { parse } from "url";
+
+import { createLogger } from "./logger";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = process.env.HOST || "localhost";
@@ -9,14 +22,9 @@ const port = parseInt(process.env.PORT || "3000");
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
-import { bgBlue, bgGreen, bgRed, gray, red } from "@colors/colors";
-import { readdir, readFile } from "fs/promises";
-import { resolve } from "path";
-import { createLogger } from "./logger";
-
 async function printVersion() {
   const { version } = JSON.parse(
-    await readFile("package.json").then((f) => f.toString())
+    await readFile("package.json").then((f) => f.toString()),
   );
 
   console.log("\n");
@@ -29,6 +37,7 @@ async function loadModules() {
   log(`Found ${modules.length} modules!`);
 
   for (const moduleName of modules) {
+    if (moduleName !== "bot-shield") continue;
     log(gray(`Initialising ${moduleName}`));
     require(resolve(`server/.build/server/modules/${moduleName}/index.js`));
   }
@@ -56,7 +65,11 @@ async function startApp() {
         process.exit(1);
       })
       .listen(port, () =>
-        log(`Admin Panel is ready on http://${hostname}:${port}`)
+        log(
+          `${gray("Admin Panel is ready on http://")}${blue(hostname)}${gray(
+            ":",
+          )}${yellow(port.toString())}`,
+        ),
       );
   });
 }

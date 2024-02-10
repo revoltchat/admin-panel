@@ -1,0 +1,4 @@
+[submodule "server/modules/bot-shield"]
+	path = server/modules/bot-shield
+	url = https://git.is.horse/revolt/research-development/bot-shield-module.git
+	update = none

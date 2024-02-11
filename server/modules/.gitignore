@@ -1,5 +1,0 @@
-# for now:
-**/*
-!.gitignore
-!bot-shield
-!bot-shield/**/*

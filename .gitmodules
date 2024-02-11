@@ -2,3 +2,10 @@
 	path = server/modules/bot-shield
 	url = https://git.is.horse/revolt/research-development/bot-shield-module.git
 	update = none
+[submodule "server/modules/global-helper-bot"]
+	path = server/modules/global-helper-bot
+	url = https://git.is.horse/revolt/research-development/global-helper-bot
+[submodule "server/modules/discover-rankings"]
+	path = server/modules/discover-rankings
+	url = https://git.is.horse/revolt/research-development/discover-rankings-module
+	update = none

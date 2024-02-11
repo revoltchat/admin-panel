@@ -37,7 +37,7 @@ async function loadModules() {
   log(`Found ${modules.length} modules!`);
 
   for (const moduleName of modules) {
-    if (moduleName !== "bot-shield") continue;
+    if (moduleName === "_disabled") continue;
     log(gray(`Initialising ${moduleName}`));
     require(resolve(`server/.build/server/modules/${moduleName}/index.js`));
   }

@@ -7,6 +7,7 @@ type Person = {
   email: string;
   status: "Unapproved" | "Inactive" | "Active";
   positions: string[];
+  roles: string[];
 };
 
 type Position = {
@@ -41,7 +42,10 @@ export async function flattenPermissionsFor(
     .collection<Role>("roles")
     .find({
       _id: {
-        $in: positions.flatMap((position) => position.roles),
+        $in: [
+          ...positions.flatMap((position) => position.roles),
+          ...person.roles,
+        ],
       },
     })
     .toArray();

@@ -2,6 +2,8 @@ import { PageTitle } from "@/components/common/navigation/PageTitle";
 import { Changelog } from "@/components/core/admin/changelogs/Changelog";
 import { ServerCard } from "@/components/core/revolt/servers/ServerCard";
 import { ServerInterface } from "@/components/core/revolt/servers/ServerInterface";
+import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_DISCOVER } from "@/lib/auth/rbacInternal";
 import { adminDiscoverRequests, servers } from "@/lib/db/types";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -20,6 +22,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function Request({ params }: { params: { id: string } }) {
+  await useScopedUser(RBAC_PERMISSION_MODERATION_DISCOVER);
+
   const request = await adminDiscoverRequests().findOne({ _id: params.id });
   if (!request) return notFound();
 

@@ -2,6 +2,7 @@ import { PageTitle } from "@/components/common/navigation/PageTitle";
 import { MessageList } from "@/components/core/revolt/messages/MessageList";
 import { ServerCard } from "@/components/core/revolt/servers/ServerCard";
 import { ServerInterface } from "@/components/core/revolt/servers/ServerInterface";
+import { useScopedUser } from "@/lib/auth";
 import { fetchMessages } from "@/lib/core";
 import { users } from "@/lib/db/types";
 import { Metadata } from "next";
@@ -37,6 +38,8 @@ export async function generateMetadata(
 export const dynamic = "force-dynamic";
 
 export default async function User({ params }: Props) {
+  await useScopedUser("*");
+
   const server = await getUser(params.id);
   if (!server) return notFound();
 

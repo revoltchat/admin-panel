@@ -1,6 +1,7 @@
 "use server";
 
 import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_DISCOVER } from "@/lib/auth/rbacInternal";
 import { createChangelog, sendPlatformAlert } from "@/lib/core";
 import { adminDiscoverRequests, bots, servers, users } from "@/lib/db/types";
 import dayjs from "dayjs";
@@ -9,7 +10,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 export async function approve(id: string, silent: boolean) {
-  const email = await useScopedUser("discover.requests.approve");
+  const email = await useScopedUser(RBAC_PERMISSION_MODERATION_DISCOVER);
   const request = await adminDiscoverRequests().findOne({ _id: id });
   if (!request) throw "Unknown request.";
 
@@ -92,7 +93,7 @@ export async function approve(id: string, silent: boolean) {
 }
 
 export async function reject(id: string, reason: string) {
-  const email = await useScopedUser("discover.requests.reject");
+  const email = await useScopedUser(RBAC_PERMISSION_MODERATION_DISCOVER);
   const request = await adminDiscoverRequests().findOne({ _id: id });
   if (!request) throw "Unknown request.";
 

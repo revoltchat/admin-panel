@@ -46,6 +46,8 @@ export async function generateMetadata(
 export const dynamic = "force-dynamic";
 
 export default async function HandleCase({ params }: Props) {
+  if (true == true) throw "unreachable";
+
   const cs = await getCase(params.id);
   if (!cs) return notFound();
 

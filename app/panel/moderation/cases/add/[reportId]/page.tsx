@@ -1,5 +1,7 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
 import { Report } from "@/components/core/admin/reports/Report";
+import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import { cases, reports } from "@/lib/db/types";
 import { notFound } from "next/navigation";
 
@@ -15,6 +17,8 @@ type Props = { params: { reportId: string } };
 export const dynamic = "force-dynamic";
 
 export default async function AddReport({ params }: Props) {
+  await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
+
   const report = await reports().findOne({ _id: params.reportId });
   if (!report || report.case_id) return notFound();
 

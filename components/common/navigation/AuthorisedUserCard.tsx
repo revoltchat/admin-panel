@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthorisedUser } from "@/lib/auth";
+import { useAuthorisedUser } from "@/lib/auth/user";
 import { signOut } from "next-auth/react";
 
 import { ExitIcon } from "@radix-ui/react-icons";

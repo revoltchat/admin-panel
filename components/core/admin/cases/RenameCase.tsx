@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthorisedUser } from "@/lib/auth";
+import { useAuthorisedUser } from "@/lib/auth/user";
 import { CaseDocument, ChangeLogDocument } from "@/lib/db/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";

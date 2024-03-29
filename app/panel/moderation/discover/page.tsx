@@ -1,4 +1,6 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
+import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_DISCOVER } from "@/lib/auth/rbacInternal";
 import { adminDiscoverRequests } from "@/lib/db/types";
 import { Metadata } from "next";
 
@@ -16,6 +18,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function Discover() {
+  await useScopedUser(RBAC_PERMISSION_MODERATION_DISCOVER);
+
   const requests = await adminDiscoverRequests().find().toArray();
 
   return (

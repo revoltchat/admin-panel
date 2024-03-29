@@ -1,6 +1,7 @@
 "use server";
 
 import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_COMMENT_CREATE } from "@/lib/auth/rbacInternal";
 import { createChangelog } from "@/lib/core";
 import { ChangeLogDocument, changelog } from "@/lib/db/types";
 
@@ -12,7 +13,7 @@ export async function createComment(
   object: ChangeLogDocument["object"],
   text: string,
 ) {
-  const userEmail = await useScopedUser("comment");
+  const userEmail = await useScopedUser(RBAC_PERMISSION_COMMENT_CREATE);
 
   return await createChangelog(userEmail, {
     object,

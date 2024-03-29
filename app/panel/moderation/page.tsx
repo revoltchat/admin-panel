@@ -1,4 +1,6 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
+import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import { adminDiscoverRequests, cases, reports } from "@/lib/db/types";
 import { ticketMetrics } from "@/lib/integrations/zammad";
 import dayjs from "dayjs";
@@ -18,6 +20,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
+  await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
+
   const openReports = await reports().find({ status: "Created" }).toArray();
   const reportUrgency = openReports.map((report) =>
     report.content.report_reason.includes("Illegal"),

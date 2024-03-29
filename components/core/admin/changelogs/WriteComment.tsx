@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthorisedUser } from "@/lib/auth";
+import { useAuthorisedUser } from "@/lib/auth/user";
 import { ChangeLogDocument } from "@/lib/db/types";
 import { useState } from "react";
 

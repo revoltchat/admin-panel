@@ -1,4 +1,6 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
+import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -28,6 +30,8 @@ export async function generateMetadata(
 export const dynamic = "force-dynamic";
 
 export default async function HandleCase({ params }: Props) {
+  await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
+
   const data = await getCaseAll(params.id);
   if (!data.cs) return notFound();
 

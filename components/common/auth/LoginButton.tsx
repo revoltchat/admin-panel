@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthorisedUser } from "@/lib/auth";
+import { useAuthorisedUser } from "@/lib/auth/user";
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 

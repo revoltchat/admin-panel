@@ -1,4 +1,5 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
+import { useScopedUser } from "@/lib/auth";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
   description: "Fetch information by known IDs.",
 };
 
-export default function Inspect() {
+export default async function Inspect() {
+  await useScopedUser("*");
   return <PageTitle metadata={metadata} />;
 }

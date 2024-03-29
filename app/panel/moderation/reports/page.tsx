@@ -2,6 +2,8 @@ import { PageTitle } from "@/components/common/navigation/PageTitle";
 import { Case } from "@/components/core/admin/cases/Case";
 import { Report } from "@/components/core/admin/reports/Report";
 import { ReportGrouping } from "@/components/core/admin/reports/ReportGrouping";
+import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import {
   ReportDocument,
   SnapshotDocument,
@@ -32,7 +34,9 @@ export const metadata: Metadata = {
  */
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+export default async function Reports() {
+  await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
+
   const list = await reports()
     .find(
       {

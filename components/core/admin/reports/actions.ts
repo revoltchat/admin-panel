@@ -1,25 +1,13 @@
 "use server";
 
 import { useScopedUser } from "@/lib/auth";
+import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import { cases, reports } from "@/lib/db/types";
 import { redirect } from "next/navigation";
 import { ulid } from "ulid";
 
-export async function escalate(id: string) {
-  await reports().updateOne(
-    {
-      _id: id,
-    },
-    {
-      $set: {
-        _temp_escalated: true,
-      },
-    },
-  );
-}
-
 export async function createCase(title: string, reportIds: string[]) {
-  const author = await useScopedUser("*");
+  const author = await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
 
   const reportSetIds = [...new Set(reportIds)];
 

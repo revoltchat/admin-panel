@@ -1,5 +1,6 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
 import { MessageList } from "@/components/core/revolt/messages/MessageList";
+import { useScopedUser } from "@/lib/auth";
 import { fetchMessages } from "@/lib/core";
 import { snapshots } from "@/lib/db/types";
 import { Metadata } from "next";
@@ -35,6 +36,8 @@ export async function generateMetadata(
 export const dynamic = "force-dynamic";
 
 export default async function Snapshot({ params }: Props) {
+  await useScopedUser("*");
+
   const snapshot = await getSnapshot(params.id);
   if (!snapshot) return notFound();
 

@@ -7,7 +7,7 @@ import { Flex, Heading } from "@radix-ui/themes";
  */
 export function PageTitle({ metadata }: { metadata: Metadata }) {
   return (
-    <Flex className="h-14 items-center">
+    <Flex className="h-14 items-center mb-2">
       <Heading size="8">{metadata.title as string}</Heading>
     </Flex>
   );

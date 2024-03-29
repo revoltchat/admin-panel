@@ -1,116 +1,147 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import {
-  ExitIcon,
+  BackpackIcon,
+  GlobeIcon,
   GroupIcon,
   HomeIcon,
+  IdCardIcon,
   InfoCircledIcon,
   Link1Icon,
-  LockClosedIcon,
   MagnifyingGlassIcon,
   PersonIcon,
   ReaderIcon,
-  TrashIcon,
 } from "@radix-ui/react-icons";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Flex,
-  IconButton,
-  Text,
-} from "@radix-ui/themes";
+import { Button, Flex, Heading } from "@radix-ui/themes";
 
 import { AuthorisedUserCard } from "./AuthorisedUserCard";
 
 export function Sidebar() {
+  const params = useSearchParams();
+  if (params.has("hideNav")) return null;
+
   const pathname = usePathname();
 
   return (
-    <Flex gap="2" direction="column" className="w-[280px]">
-      <img src="/wide.svg" className="h-8 m-4" />
-      <AuthorisedUserCard />
+    <div className="relative">
+      <Flex gap="2" direction="column" className="w-[280px]">
+        <img src="/wide.svg" className="h-8 m-4" />
+        <AuthorisedUserCard />
 
-      <Button
-        variant={pathname === "/panel" ? "solid" : "surface"}
-        className="!justify-start"
-        asChild
-      >
-        <Link href="/panel">
-          <HomeIcon /> Home
-        </Link>
-      </Button>
-      <Button
-        variant={pathname === "/panel/reports" ? "solid" : "surface"}
-        className="!justify-start"
-        asChild
-      >
-        <Link href="/panel/reports">
-          <ReaderIcon /> Reports & Cases
-        </Link>
-      </Button>
-      {/*<Button variant="surface" className="!justify-start">
-        <PersonIcon />
-        Team Members
-      </Button>
-      <Button variant="surface" className="!justify-start">
-        <GroupIcon />
-        Permissions & Groups
-      </Button>
-      <Button variant="surface" className="!justify-start">
-        <Link1Icon />
-        Integration Settings
-      </Button>
-      <Button variant="surface" className="!justify-start">
-        <MagnifyingGlassIcon />
-        Search by ID
-      </Button>
-      <Button variant="surface" className="!justify-start">
-        <LockClosedIcon />
-        Authifier
-      </Button>
-      <Button variant="surface" className="!justify-start">
-        <TrashIcon />
-        Nuked Content
-      </Button> */}
-      <Button
-        variant={pathname === "/panel/about" ? "solid" : "surface"}
-        className="!justify-start"
-        asChild
-      >
-        <Link href="/panel/about">
-          <InfoCircledIcon />
-          About
-        </Link>
-      </Button>
+        <Button
+          variant={pathname === "/panel" ? "solid" : "surface"}
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel">
+            <HomeIcon /> Home
+          </Link>
+        </Button>
+        <Button
+          variant={pathname === "/panel/profile" ? "solid" : "surface"}
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel">
+            <IdCardIcon /> My Profile
+          </Link>
+        </Button>
 
-      {/* <div className="w-[100%] border-t-[1px] border-t-gray" /> */}
+        <Heading size="2" color="gray" className="pt-4">
+          Human Resources
+        </Heading>
+        <Button
+          variant={pathname === "/panel/hr/team" ? "solid" : "surface"}
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/hr/team">
+            <PersonIcon />
+            Team Members
+          </Link>
+        </Button>
+        <Button
+          variant={pathname === "/panel/hr/positions" ? "solid" : "surface"}
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/hr/positions">
+            <BackpackIcon />
+            Positions
+          </Link>
+        </Button>
+        <Button
+          variant={pathname === "/panel/hr/rbac" ? "solid" : "surface"}
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/hr/rbac">
+            <GroupIcon />
+            Roles & Permissions
+          </Link>
+        </Button>
+        {/* <Button
+          variant={pathname === "/panel/hr/integrations" ? "solid" : "surface"}
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/hr/integrations">
+            <Link1Icon />
+            Integration Settings
+          </Link>
+        </Button> */}
 
-      {/* {[
-                  "Case: Server(s) ijghhjifg",
-                  "Server: Balls!",
-                  "User: userisreal",
-                ].map((x, i) => (
-                  <Flex
-                    gap="2"
-                    key={i}
-                    className="overflow-hidden min-w-0 flex-shrink-0 hover-btn"
-                  >
-                    <Button
-                      variant="outline"
-                      className="whitespace-nowrap text-ellipsis overflow-hidden !block !flex-shrink flex-grow"
-                    >
-                      {x}
-                    </Button>
-                    <Button variant="outline" color="tomato" className="btn">
-                      <Cross2Icon />
-                    </Button>
-                  </Flex>
-                ))} */}
-    </Flex>
+        <Heading size="2" color="gray" className="pt-4">
+          Content Moderation
+        </Heading>
+        <Button
+          variant={pathname === "/panel/moderation" ? "solid" : "surface"}
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/moderation">
+            <InfoCircledIcon /> Overview
+          </Link>
+        </Button>
+        <Button
+          variant={
+            pathname === "/panel/moderation/reports" ? "solid" : "surface"
+          }
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/moderation/reports">
+            <ReaderIcon /> Reports & Cases
+          </Link>
+        </Button>
+        <Button
+          variant={
+            pathname === "/panel/moderation/discover" ? "solid" : "surface"
+          }
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/moderation/discover">
+            <GlobeIcon />
+            Discover
+          </Link>
+        </Button>
+        {/* <Button
+          variant={
+            pathname === "/panel/moderation/inspect" ? "solid" : "surface"
+          }
+          className="!justify-start"
+          asChild
+        >
+          <Link href="/panel/moderation/inspect">
+            <MagnifyingGlassIcon />
+            Search by ID
+          </Link>
+        </Button> */}
+      </Flex>
+    </div>
   );
 }

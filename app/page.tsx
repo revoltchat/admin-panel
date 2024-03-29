@@ -1,4 +1,5 @@
 import { LoginButton } from "@/components/common/auth/LoginButton";
+import { Metadata } from "next";
 import { Comic_Neue } from "next/font/google";
 
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";

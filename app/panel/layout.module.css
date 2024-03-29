@@ -1,0 +1,19 @@
+@media screen and (max-width: 720px) {
+  .panel {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+  }
+
+  .panel > * {
+    scroll-snap-align: start;
+  }
+
+  .content {
+    padding: 1rem;
+    min-width: 100vw;
+  }
+}
+
+.panel > * {
+  padding: 2rem;
+}

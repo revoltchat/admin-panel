@@ -1,4 +1,6 @@
 import { ClientAuthProvider } from "@/lib/auth/clientProvider";
+import { ClientQueryProvider } from "@/lib/query/queryProvider";
+import "@/lib/winbox";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -7,7 +9,11 @@ import "@radix-ui/themes/styles.css";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Revolt Admin Panel",
@@ -21,13 +27,15 @@ export default function RootLayout({
 }) {
   return (
     <ClientAuthProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Theme appearance="dark" panelBackground="solid">
-            {children}
-          </Theme>
-        </body>
-      </html>
+      <ClientQueryProvider>
+        <html lang="en" className={inter.variable}>
+          <body>
+            <Theme appearance="dark" panelBackground="solid">
+              {children}
+            </Theme>
+          </body>
+        </html>
+      </ClientQueryProvider>
     </ClientAuthProvider>
   );
 }

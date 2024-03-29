@@ -1,3 +1,4 @@
+import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 
 type AuthorisedUser = {
@@ -40,4 +41,19 @@ export function useAuthorisedUser(allowNull = false): AuthorisedUser {
       usingNextAuth: true,
     };
   }
+}
+
+/**
+ * Check whether the currently authorised user has a given scope and return them if such
+ * @param scope Required scope
+ * @returns User email
+ */
+export async function useScopedUser(scope: string) {
+  const session = await getServerSession();
+  if (!session?.user?.email) throw "Unauthenticated!";
+
+  // TODO: RBAC code
+  console.debug(`Check ${session.user.email} against scope ${scope}`);
+
+  return session.user.email;
 }

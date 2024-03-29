@@ -14,6 +14,7 @@
     "@colors/colors": "^1.6.0",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/themes": "^2.0.3",
+    "@tanstack/react-query": "^5.24.2",
     "@tensorflow/tfjs-node": "^4.17.0",
     "dayjs": "^1.11.10",
     "lru-cache": "^10.2.0",
@@ -28,7 +29,8 @@
     "revolt.js": "^7.0.0-beta.11",
     "scikitjs": "^1.24.0",
     "string-comparison": "^1.3.0",
-    "ulid": "^2.3.0"
+    "ulid": "^2.3.0",
+    "winbox": "^0.2.82"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -36,6 +38,8 @@
     "@types/node-cron": "^3.0.11",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/winbox": "^0.2.5",
+    "@typescript-eslint/parser": "^7.0.2",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",

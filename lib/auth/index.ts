@@ -18,7 +18,7 @@ export async function useScopedUser(scope: string) {
 
   if (!checkPermission(permissions, scope)) {
     console.debug(`${session.user.email} rejected, lacking ${scope}`);
-    return redirect("/panel/access-denied");
+    return redirect("/panel/access-denied?missing=" + scope);
   }
 
   return session.user.email;

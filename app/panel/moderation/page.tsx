@@ -34,8 +34,8 @@ export default async function Dashboard() {
       <Text>many such cases...</Text>
 
       <Grid columns="1" gap="3" width="auto">
-        {scopes[RBAC_PERMISSION_MODERATION_AGENT] && <ModerationStats />}
-        {scopes[RBAC_PERMISSION_MODERATION_DISCOVER] && <DiscoverStats />}
+        {scopes["moderation.agent"] && <ModerationStats />}
+        {scopes["moderation.discover"] && <DiscoverStats />}
       </Grid>
     </>
   );

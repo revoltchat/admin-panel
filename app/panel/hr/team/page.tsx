@@ -1,10 +1,16 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
+import { useUserWithScopes } from "@/lib/auth";
+import {
+  RBAC_PERMISSION_HR_MEMBER_APPROVE,
+  RBAC_PERMISSION_HR_MEMBER_CREATE,
+} from "@/lib/auth/rbacInternal";
 import { Hr, fetchPeople } from "@/lib/database";
 import { fetchPositions } from "@/lib/database/hr/position";
 import { fetchRoles } from "@/lib/database/hr/role";
 import { Metadata } from "next";
+import Link from "next/link";
 
-import { Badge, Table } from "@radix-ui/themes";
+import { Badge, Button, Table } from "@radix-ui/themes";
 
 export const metadata: Metadata = {
   title: "Team Members",
@@ -12,6 +18,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
+  const [_, scopes] = await useUserWithScopes([
+    RBAC_PERMISSION_HR_MEMBER_CREATE,
+    RBAC_PERMISSION_HR_MEMBER_APPROVE,
+  ]);
+
   const people = await fetchPeople();
 
   const positions = await fetchPositions(
@@ -40,7 +51,12 @@ export default async function Home() {
           {person.name}{" "}
           {person.status === "Inactive" && <Badge color="red">Inactive</Badge>}
         </Table.RowHeaderCell>
-        <Table.Cell>{person.email}</Table.Cell>
+        <Table.Cell>
+          {person.email}{" "}
+          {person.email.endsWith("@revolt.chat") ? null : (
+            <Badge color="amber">External</Badge>
+          )}
+        </Table.Cell>
         <Table.Cell>
           {person.positions
             .map((position) => positionsDict[position])
@@ -71,8 +87,8 @@ export default async function Home() {
       <Table.Root>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Identifier</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Positions</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Roles</Table.ColumnHeaderCell>
           </Table.Row>
@@ -84,6 +100,19 @@ export default async function Home() {
           ))}
         </Table.Body>
       </Table.Root>
+
+      <div className="flex gap-2">
+        {scopes["hr.people.create"] && (
+          <Button variant="outline">
+            <Link href="/panel/hr/team/new">Request New Member</Link>
+          </Button>
+        )}
+        {scopes["hr.people.approve"] && (
+          <Button variant="outline" asChild>
+            <Link href="/panel/hr/team/requests">View Approval Requests</Link>
+          </Button>
+        )}
+      </div>
     </>
   );
 }

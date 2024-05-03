@@ -7,6 +7,7 @@ export async function flattenPermissionsFor(
 ) {
   const person = await fetchPerson(query);
   if (!person) throw "Person doesn't exist!";
+  if (person.status !== "Active") return [];
 
   const positions = await fetchPositions(person.positions);
   const roles = await fetchRoles([

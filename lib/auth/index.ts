@@ -23,3 +23,27 @@ export async function useScopedUser(scope: string) {
 
   return session.user.email;
 }
+
+/**
+ * Check which of the given scopes are allowed to the given user
+ * @param scopes Scopes to check
+ * @returns User email and scope information
+ */
+export async function useUserWithScopes<T extends string>(
+  scopes: T[],
+): Promise<[string, Record<T, boolean>]> {
+  const session = await getServerSession();
+  if (!session?.user?.email) return redirect("/panel/access-denied");
+
+  const permissions = await flattenPermissionsFor({
+    email: session.user.email,
+  });
+
+  return [
+    session.user.email,
+    scopes.reduce(
+      (r, s) => ({ ...r, [s]: checkPermission(permissions, s) }),
+      {} as Record<T, boolean>,
+    ),
+  ];
+}

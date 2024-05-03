@@ -30,6 +30,7 @@ export function ServerCard({
           />
           <Text>{server.name}</Text>
         </Flex>
+        {server.description && <Text>{server.description}</Text>}
         <Flex gap="2" wrap="wrap">
           <Badge color="purple">Server</Badge>
           <Badge color="gray">

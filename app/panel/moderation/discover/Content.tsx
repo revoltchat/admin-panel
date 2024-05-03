@@ -148,7 +148,7 @@ export async function DiscoverRequests({
 
           return (
             <Card asChild key={request._id}>
-              <Link href={`/panel/inspect/discover/request/${request._id}`}>
+              <Link href={`/panel/moderation/discover/request/${request._id}`}>
                 <Flex gap="2" align="center">
                   <Avatar
                     src={

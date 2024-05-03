@@ -36,7 +36,10 @@ export function Report({
           </Text>
 
           <Text as="div" size="2" color="gray">
-            <Badge color={overdueReport ? "red" : "gray"}>
+            <Badge
+              color={overdueReport ? "red" : "gray"}
+              suppressHydrationWarning
+            >
               {reportOpenedTime.fromNow()}
             </Badge>{" "}
             &middot;{" "}

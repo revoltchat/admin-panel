@@ -4,7 +4,7 @@ import { ServerCard } from "@/components/core/revolt/servers/ServerCard";
 import { ServerInterface } from "@/components/core/revolt/servers/ServerInterface";
 import { useScopedUser } from "@/lib/auth";
 import { RBAC_PERMISSION_MODERATION_DISCOVER } from "@/lib/auth/rbacInternal";
-import { adminDiscoverRequests, servers } from "@/lib/db/types";
+import { adminDiscoverRequests, servers, users } from "@/lib/db/types";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -32,6 +32,19 @@ export default async function Request({ params }: { params: { id: string } }) {
       ? await servers().findOne({ _id: request.serverId })
       : null;
 
+  const owner = server
+    ? await users().findOne(
+        { _id: server.owner },
+        {
+          projection: {
+            username: 1,
+            discriminator: 1,
+            avatar: 1,
+          },
+        },
+      )
+    : null;
+
   return (
     <>
       <PageTitle metadata={metadata} />
@@ -39,7 +52,7 @@ export default async function Request({ params }: { params: { id: string } }) {
         {request.type === "Server" ? (
           <>
             <Flex direction="column" gap="2">
-              <ServerCard server={server!} />
+              <ServerCard server={server!} owner={owner!} />
               <ServerInterface server={server!} />
             </Flex>
           </>

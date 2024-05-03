@@ -20,7 +20,9 @@ export function RequestActions({
       <Button
         color="green"
         onClick={() =>
-          approve(request._id, false).then(() => router.push("/panel/discover"))
+          approve(request._id, false).then(() =>
+            router.push("/panel/moderation/discover"),
+          )
         }
       >
         Approve
@@ -29,14 +31,18 @@ export function RequestActions({
         color="green"
         variant="outline"
         onClick={() =>
-          approve(request._id, true).then(() => router.push("/panel/discover"))
+          approve(request._id, true).then(() =>
+            router.push("/panel/moderation/discover"),
+          )
         }
       >
         Silently Approve
       </Button>
       <ReasonButton
         onConfirm={(reason) =>
-          reject(request._id, reason).then(() => router.push("/panel/discover"))
+          reject(request._id, reason).then(() =>
+            router.push("/panel/moderation/discover"),
+          )
         }
       >
         <Button color="red">Reject</Button>
@@ -44,7 +50,7 @@ export function RequestActions({
       <ReasonButton
         onConfirm={(reason) =>
           reject(request._id, "(silent) " + reason).then(() =>
-            router.push("/panel/discover"),
+            router.push("/panel/moderation/discover"),
           )
         }
       >

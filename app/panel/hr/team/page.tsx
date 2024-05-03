@@ -44,6 +44,10 @@ export default async function Home() {
     {} as Record<string, Hr["Role"]>,
   );
 
+  const approvalRequests = people.filter(
+    (person) => person.status === "Pending",
+  ).length;
+
   function Person({ person }: { person: Hr["Person"] }) {
     return (
       <Table.Row>
@@ -58,23 +62,27 @@ export default async function Home() {
           )}
         </Table.Cell>
         <Table.Cell>
-          {person.positions
-            .map((position) => positionsDict[position])
-            .map((position) => (
-              <Badge color={position.color}>{position.title}</Badge>
-            ))}
+          <div className="flex gap-2">
+            {person.positions
+              .map((position) => positionsDict[position])
+              .map((position) => (
+                <Badge color={position.color}>{position.title}</Badge>
+              ))}
+          </div>
         </Table.Cell>
         <Table.Cell>
-          {[
-            ...person.positions.flatMap(
-              (position) => positionsDict[position].roles,
-            ),
-            ...person.roles,
-          ]
-            .map((role) => rolesDict[role])
-            .map((role) => (
-              <Badge color={role.color}>{role.name}</Badge>
-            ))}
+          <div className="flex gap-2">
+            {[
+              ...person.positions.flatMap(
+                (position) => positionsDict[position].roles,
+              ),
+              ...person.roles,
+            ]
+              .map((role) => rolesDict[role])
+              .map((role) => (
+                <Badge color={role.color}>{role.name}</Badge>
+              ))}
+          </div>
         </Table.Cell>
       </Table.Row>
     );
@@ -95,9 +103,14 @@ export default async function Home() {
         </Table.Header>
 
         <Table.Body>
-          {people.map((person) => (
-            <Person person={person} />
-          ))}
+          {people
+            .filter(
+              (person) =>
+                person.status === "Active" || person.status === "Inactive",
+            )
+            .map((person) => (
+              <Person person={person} />
+            ))}
         </Table.Body>
       </Table.Root>
 
@@ -107,9 +120,11 @@ export default async function Home() {
             <Link href="/panel/hr/team/new">Request New Member</Link>
           </Button>
         )}
-        {scopes["hr.people.approve"] && (
+        {scopes["hr.people.approve"] && (approvalRequests ? true : null) && (
           <Button variant="outline" asChild>
-            <Link href="/panel/hr/team/requests">View Approval Requests</Link>
+            <Link href="/panel/hr/team/requests">
+              View Approval Requests ({approvalRequests})
+            </Link>
           </Button>
         )}
       </div>

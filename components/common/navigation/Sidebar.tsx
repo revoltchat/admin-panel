@@ -108,23 +108,23 @@ export function Sidebar({
               Content Moderation
             </Heading>
             <Button
-              variant={pathname === "/panel/moderation" ? "solid" : "surface"}
+              variant={pathname === "/panel/mod/legacy" ? "solid" : "surface"}
               className="!justify-start"
               asChild
             >
-              <Link href="/panel/moderation">
+              <Link href="/panel/mod/legacy">
                 <InfoCircledIcon /> Overview
               </Link>
             </Button>
             {modules.modAgent && (
               <Button
                 variant={
-                  pathname === "/panel/moderation/reports" ? "solid" : "surface"
+                  pathname === "/panel/mod/legacy/reports" ? "solid" : "surface"
                 }
                 className="!justify-start"
                 asChild
               >
-                <Link href="/panel/moderation/reports">
+                <Link href="/panel/mod/legacy/reports">
                   <ReaderIcon /> Reports & Cases
                 </Link>
               </Button>
@@ -132,14 +132,14 @@ export function Sidebar({
             {modules.discoverAgent && (
               <Button
                 variant={
-                  pathname === "/panel/moderation/discover"
+                  pathname === "/panel/mod/legacy/discover"
                     ? "solid"
                     : "surface"
                 }
                 className="!justify-start"
                 asChild
               >
-                <Link href="/panel/moderation/discover">
+                <Link href="/panel/mod/legacy/discover">
                   <GlobeIcon />
                   Discover
                 </Link>
@@ -147,12 +147,12 @@ export function Sidebar({
             )}
             {/* <Button
           variant={
-            pathname === "/panel/moderation/inspect" ? "solid" : "surface"
+            pathname === "/panel/mod/legacy/inspect" ? "solid" : "surface"
           }
           className="!justify-start"
           asChild
         >
-          <Link href="/panel/moderation/inspect">
+          <Link href="/panel/mod/legacy/inspect">
             <MagnifyingGlassIcon />
             Search by ID
           </Link>

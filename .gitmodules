@@ -9,3 +9,6 @@
 	path = server/modules/discover-rankings
 	url = https://git.is.horse/revolt/research-development/discover-rankings-module
 	update = none
+[submodule "app/panel/hr"]
+	path = app/panel/hr
+	url = https://git.is.horse/revolt/research-development/panel-hr

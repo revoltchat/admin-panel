@@ -1,4 +1,5 @@
 import { RedisClientType, createClient } from "@redis/client";
+import { readFile } from "node:fs/promises";
 import type { ProtocolV1 } from "revolt.js/lib/events/v1";
 
 export { RedisEventListener } from "./eventListener";
@@ -8,13 +9,45 @@ export { RedisEventListener } from "./eventListener";
  */
 let client: RedisClientType;
 
+let certificates: {
+  ca: string;
+  cert: string;
+  key: string;
+};
+
+async function getCerts() {
+  certificates = {
+    ca: await readFile("revolt.crt").then((f) => f.toString()),
+    cert: await readFile("client.crt")
+      .then((f) => f.toString())
+      .catch(() => ""),
+    key: await readFile("client.key")
+      .then((f) => f.toString())
+      .catch(() => ""),
+  };
+
+  return certificates;
+}
+
 /**
  * Fetch handle to Redis client
  * @returns Redis client
  */
 export async function redis() {
   if (!client) {
-    client = createClient({ url: process.env.REDIS! });
+    const { ca, cert, key } = await getCerts();
+    client = createClient({
+      url: process.env.REDIS!,
+      socket: cert
+        ? {
+            tls: true,
+            ca,
+            cert,
+            key,
+          }
+        : undefined,
+    });
+
     await client.connect();
   }
 
@@ -26,7 +59,18 @@ export async function redis() {
  * @returns Redis client
  */
 export async function newRedis() {
-  const client = createClient({ url: process.env.REDIS! });
+  const { ca, cert, key } = await getCerts();
+  const client = createClient({
+    url: process.env.REDIS!,
+    socket: cert
+      ? {
+          tls: true,
+          ca,
+          cert,
+          key,
+        }
+      : undefined,
+  });
   await client.connect();
   return client;
 }

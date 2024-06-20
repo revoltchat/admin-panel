@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 import {
   BackpackIcon,
+  ExclamationTriangleIcon,
   GlobeIcon,
   GroupIcon,
   HomeIcon,
@@ -114,6 +115,19 @@ export function Sidebar({
             >
               <Link href="/panel/mod/legacy">
                 <InfoCircledIcon /> Overview
+              </Link>
+            </Button>
+            <Button
+              variant={
+                pathname === "/panel/mod/legacy/create-report"
+                  ? "solid"
+                  : "surface"
+              }
+              className="!justify-start"
+              asChild
+            >
+              <Link href="/panel/mod/legacy/create-report">
+                <ExclamationTriangleIcon /> Create Report
               </Link>
             </Button>
             {modules.modAgent && (

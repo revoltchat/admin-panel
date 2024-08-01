@@ -54,6 +54,15 @@ export type ChangeLogDocument = {
     ))
   | ({
       object: {
+        type: "User";
+        id: string;
+      };
+    } & {
+      type: "user/export";
+      exportType: "law-enforcement";
+    })
+  | ({
+      object: {
         type: "Case";
         id: string;
       };

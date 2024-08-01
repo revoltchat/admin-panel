@@ -28,14 +28,14 @@ export function Comment({
           src={icon}
           style={{ backdropFilter: "blur(10px)" }}
         />
-        <Text color="gray" size="2">
+        <Text color="gray" size="2" suppressHydrationWarning>
           <Text color="plum">{name}</Text> commented{" "}
           {dayjs(decodeTime(id)).fromNow()}
         </Text>
       </Flex>
       <Card className="ml-12">
-        {text.split("\n").map((text) => (
-          <div>{text}</div>
+        {text.split("\n").map((text, idx) => (
+          <div key={idx}>{text}</div>
         ))}
       </Card>
     </Flex>

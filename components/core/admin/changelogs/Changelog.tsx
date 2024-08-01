@@ -2,6 +2,7 @@
 
 import { Loading } from "@/components/common/data/Loading";
 import { NoEntries } from "@/components/common/data/NoEntries";
+import { emailToImage } from "@/lib/auth/user";
 import { ChangeLogDocument } from "@/lib/db/types";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -51,7 +52,7 @@ type Renderers = {
 const ChangeRenderer: Renderers = {
   comment: (change) => ({
     type: "comment",
-    icon: "/tmp/pfp.png",
+    icon: emailToImage(change.userEmail),
     name: change.userEmail,
     text: change.text,
   }),
@@ -252,7 +253,7 @@ export function Changelog({ object }: { object: ChangeLogDocument["object"] }) {
                   />
                   <Text color="gray" size="2">
                     {description}{" "}
-                    <Badge color="gray">
+                    <Badge color="gray" suppressHydrationWarning>
                       {dayjs(decodeTime(change._id)).fromNow()}
                     </Badge>
                   </Text>

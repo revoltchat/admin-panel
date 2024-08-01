@@ -38,3 +38,7 @@ next-env.d.ts
 # TLS cert/key
 client.crt
 client.key
+
+# local files
+exports/*
+!exports/.gitkeep

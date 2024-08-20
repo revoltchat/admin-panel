@@ -13,7 +13,7 @@ export function AuthorisedUserCard() {
     <Card>
       <Flex gap="3" align="center">
         <Avatar size="3" src={image} radius="full" fallback="T" />
-        <Box grow="1">
+        <Box flexGrow="1">
           <Text as="div" size="2" weight="bold">
             {name}
           </Text>

@@ -1,6 +1,6 @@
 "use server";
 
-import { useScopedUser } from "@/lib/auth";
+import { getScopedUser } from "@/lib/auth";
 import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import { col } from "@/lib/db";
 import { CaseDocument, ReportDocument } from "@/lib/db/types";
@@ -76,7 +76,7 @@ function reportDisplayName(report: ReportDocument) {
 }
 
 export async function search(thing: string) {
-  await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
+  await getScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
 
   const results: SearchResult[] = [];
 

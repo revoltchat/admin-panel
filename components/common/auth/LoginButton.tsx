@@ -15,6 +15,7 @@ export function LoginButton() {
     );
   }
 
+  // eslint-disable-next-line
   const user = useAuthorisedUser(true);
   if (user) {
     return (

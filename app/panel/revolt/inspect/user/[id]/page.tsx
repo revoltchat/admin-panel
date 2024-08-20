@@ -1,6 +1,6 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
 import { Changelog } from "@/components/core/admin/changelogs/Changelog";
-import { useScopedUser } from "@/lib/auth";
+import { getScopedUser } from "@/lib/auth";
 import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import {
   fetchAccountById,
@@ -33,7 +33,7 @@ import { UserStrikes } from "./userManagement";
 
 type Props = { params: { id: string } };
 
-export const getUser = cache(async (id: string) => ({
+const getUser = cache(async (id: string) => ({
   account: await fetchAccountById(id),
   user: await fetchUserById(id),
 }));
@@ -61,7 +61,7 @@ export async function generateMetadata(
 export const dynamic = "force-dynamic";
 
 export default async function User({ params }: Props) {
-  await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
+  await getScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
 
   const { account, user } = await getUser(params.id);
   if (!account && !user) notFound();

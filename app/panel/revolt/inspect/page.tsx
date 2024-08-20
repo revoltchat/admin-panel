@@ -1,5 +1,5 @@
 import { PageTitle } from "@/components/common/navigation/PageTitle";
-import { useScopedUser } from "@/lib/auth";
+import { getScopedUser } from "@/lib/auth";
 import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Inspector() {
-  await useScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
+  await getScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
 
   return (
     <>

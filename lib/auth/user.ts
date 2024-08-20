@@ -29,6 +29,7 @@ export function useAuthorisedUser(allowNull = false): AuthorisedUser {
       usingNextAuth: false,
     };
   } else {
+    // eslint-disable-next-line
     const { data: session } = useSession();
     if (!session?.user?.email) {
       if (allowNull) return null!;

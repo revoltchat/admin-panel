@@ -26,7 +26,7 @@ export function WriteComment({
         <Popover.Content style={{ width: 360 }}>
           <Flex gap="3">
             <Avatar size="2" src={image} fallback={name[0]} radius="full" />
-            <Box grow="1">
+            <Box flexGrow="1">
               <TextArea
                 placeholder="Write a comment…"
                 onChange={(e) => setText(e.currentTarget.value)}

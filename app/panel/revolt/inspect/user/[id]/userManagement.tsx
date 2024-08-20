@@ -48,7 +48,7 @@ export function UserStrikes({
         </Table.Header>
         <Table.Body>
           {strikes.map((strike) => (
-            <Table.Row>
+            <Table.Row key={strike._id}>
               <Table.Cell>{strike.reason}</Table.Cell>
               <Table.Cell>
                 {strike.type === "suspension" && (

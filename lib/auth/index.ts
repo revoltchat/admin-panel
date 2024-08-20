@@ -8,7 +8,7 @@ import { checkPermission, flattenPermissionsFor } from "./rbacEngine";
  * @param scope Required scope
  * @returns User email
  */
-export async function useScopedUser(scope: string) {
+export async function getScopedUser(scope: string) {
   const session = await getServerSession();
   if (!session?.user?.email) return redirect("/panel/access-denied");
 
@@ -29,7 +29,7 @@ export async function useScopedUser(scope: string) {
  * @param scopes Scopes to check
  * @returns User email and scope information
  */
-export async function useUserWithScopes<T extends string>(
+export async function getUserWithScopes<T extends string>(
   scopes: T[],
 ): Promise<[string, Record<T, boolean>]> {
   const session = await getServerSession();

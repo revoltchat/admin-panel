@@ -1,5 +1,5 @@
 import { Sidebar } from "@/components/common/navigation/Sidebar";
-import { useUserWithScopes } from "@/lib/auth";
+import { getUserWithScopes } from "@/lib/auth";
 import {
   RBAC_PERMISSION_MODERATION_AGENT,
   RBAC_PERMISSION_MODERATION_DISCOVER,
@@ -18,7 +18,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const [_, scopes] = await useUserWithScopes([
+  const [_, scopes] = await getUserWithScopes([
     RBAC_PERMISSION_MODERATION_AGENT,
     RBAC_PERMISSION_MODERATION_DISCOVER,
   ]);

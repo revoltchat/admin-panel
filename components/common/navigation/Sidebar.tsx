@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -38,7 +39,7 @@ export function Sidebar({
   return (
     <div className="relative">
       <Flex gap="2" direction="column" className="w-[280px]">
-        <img src="/wide.svg" className="h-8 m-4" />
+        <Image src="/wide.svg" className="h-8 m-4" alt="Logo" />
         <AuthorisedUserCard />
 
         <Button

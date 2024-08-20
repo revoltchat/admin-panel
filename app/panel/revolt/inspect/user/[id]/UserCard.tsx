@@ -109,7 +109,7 @@ export function UserCard({
           <Flex direction="column" gap="2">
             <Heading size="2">Profile Bio</Heading>
             <Card>
-              <Markdown children={user.profile?.content ?? "No profile bio."} />
+              <Markdown>{user.profile?.content ?? "No profile bio."}</Markdown>
             </Card>
           </Flex>
         )}

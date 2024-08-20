@@ -11,6 +11,7 @@ import { ComponentProps, ReactNode } from "react";
 import { decodeTime } from "ulid";
 
 import {
+  ArchiveIcon,
   BadgeIcon,
   CheckIcon,
   Cross1Icon,
@@ -81,7 +82,7 @@ const ChangeRenderer: Renderers = {
         >
           rejected
         </Text>{" "}
-        this bot's request to be listed on Discover
+        this bot&apos;s request to be listed on Discover
       </>
     ),
   }),
@@ -128,7 +129,7 @@ const ChangeRenderer: Renderers = {
         >
           rejected
         </Text>{" "}
-        this server's request to be listed on Discover
+        this server&apos;s request to be listed on Discover
       </>
     ),
   }),
@@ -211,9 +212,20 @@ const ChangeRenderer: Renderers = {
     ),
     card: (
       <>
-        {change.content.split("\n").map((text) => (
-          <div>{text.trim()}</div>
+        {change.content.split("\n").map((text, idx) => (
+          <div key={idx}>{text.trim()}</div>
         ))}
+      </>
+    ),
+  }),
+  "user/export": (change) => ({
+    type: "short",
+    icon: <ArchiveIcon />,
+    color: "bronze",
+    description: (
+      <>
+        <Text color="plum">{change.userEmail}</Text> created an export of{" "}
+        {change.exportType} type
       </>
     ),
   }),
@@ -262,7 +274,9 @@ export function Changelog({ object }: { object: ChangeLogDocument["object"] }) {
               </Flex>
             );
           } else {
-            return <Comment id={change._id} comment={result} />;
+            return (
+              <Comment key={change._id} id={change._id} comment={result} />
+            );
           }
         })}
 

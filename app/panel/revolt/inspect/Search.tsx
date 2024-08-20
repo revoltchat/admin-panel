@@ -71,7 +71,7 @@ export function Search() {
       ) : data ? (
         data.length ? (
           data.map((result) => (
-            <Link href={result.link}>
+            <Link key={result.id} href={result.link}>
               <Card>
                 <Flex gap="3" align="center">
                   <Avatar

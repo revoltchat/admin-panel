@@ -3,6 +3,7 @@ import { ClientQueryProvider } from "@/lib/query/queryProvider";
 import "@/lib/winbox";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Head from "next/head";
 
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
@@ -29,6 +30,9 @@ export default function RootLayout({
     <ClientAuthProvider>
       <ClientQueryProvider>
         <html lang="en" className={inter.variable}>
+          <Head>
+            <meta name="darkreader-lock" />
+          </Head>
           <body>
             <Theme appearance="dark" panelBackground="solid">
               {children}

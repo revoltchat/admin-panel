@@ -16,19 +16,24 @@ import {
   PersonIcon,
   ReaderIcon,
 } from "@radix-ui/react-icons";
-import { Button, Flex, Heading } from "@radix-ui/themes";
+import { Badge, Button, Flex, Heading } from "@radix-ui/themes";
 
 import { AuthorisedUserCard } from "./AuthorisedUserCard";
 
 export function Sidebar({
   modules,
 }: {
-  modules: { hr: boolean; modAgent: boolean; discoverAgent: boolean };
+  modules: {
+    hr: boolean;
+    advancedPanel: boolean;
+    modAgent: boolean;
+    discoverAgent: boolean;
+  };
 }) {
+  const pathname = usePathname();
+
   const params = useSearchParams();
   if (params.has("hideNav")) return null;
-
-  const pathname = usePathname();
 
   return (
     <div className="relative">
@@ -45,7 +50,7 @@ export function Sidebar({
             <HomeIcon /> Home
           </Link>
         </Button>
-        <Button
+        {/* <Button
           variant={pathname === "/panel/profile" ? "solid" : "surface"}
           className="!justify-start"
           asChild
@@ -53,7 +58,7 @@ export function Sidebar({
           <Link href="/panel">
             <IdCardIcon /> My Profile
           </Link>
-        </Button>
+        </Button> -- WIP */}
 
         {modules.hr && (
           <>
@@ -70,7 +75,7 @@ export function Sidebar({
                 Team Members
               </Link>
             </Button>
-            <Button
+            {/* <Button
               variant={pathname === "/panel/hr/positions" ? "solid" : "surface"}
               className="!justify-start"
               asChild
@@ -89,7 +94,7 @@ export function Sidebar({
                 <GroupIcon />
                 Roles & Permissions
               </Link>
-            </Button>
+            </Button> -- WIP */}
             {/* <Button
           variant={pathname === "/panel/hr/integrations" ? "solid" : "surface"}
           className="!justify-start"
@@ -108,69 +113,77 @@ export function Sidebar({
             <Heading size="2" color="gray" className="pt-4">
               Content Moderation
             </Heading>
-            <Button
-              variant={pathname === "/panel/mod/legacy" ? "solid" : "surface"}
-              className="!justify-start"
-              asChild
-            >
-              <Link href="/panel/mod/legacy">
-                <InfoCircledIcon /> Overview
-              </Link>
-            </Button>
+            {modules.advancedPanel && (
+              <Button
+                variant={pathname === "/panel/mod/legacy" ? "solid" : "surface"}
+                className="!justify-start"
+                asChild
+              >
+                <Link href="/panel/mod/legacy">
+                  <InfoCircledIcon /> Overview
+                </Link>
+              </Button>
+            )}
             <Button
               variant={
-                pathname === "/panel/mod/legacy/create-report"
-                  ? "solid"
-                  : "surface"
+                pathname === "/panel/revolt/inspect" ? "solid" : "surface"
               }
               className="!justify-start"
               asChild
             >
-              <Link href="/panel/mod/legacy/create-report">
-                <ExclamationTriangleIcon /> Create Report
+              <Link href="/panel/revolt/inspect">
+                <MagnifyingGlassIcon />
+                Search by ID <Badge color="orange">🚧 WIP</Badge>
               </Link>
             </Button>
-            {modules.modAgent && (
-              <Button
-                variant={
-                  pathname === "/panel/mod/legacy/reports" ? "solid" : "surface"
-                }
-                className="!justify-start"
-                asChild
-              >
-                <Link href="/panel/mod/legacy/reports">
-                  <ReaderIcon /> Reports & Cases
-                </Link>
-              </Button>
+            {modules.advancedPanel && (
+              <>
+                <Button
+                  variant={
+                    pathname === "/panel/mod/legacy/create-report"
+                      ? "solid"
+                      : "surface"
+                  }
+                  className="!justify-start"
+                  asChild
+                >
+                  <Link href="/panel/mod/legacy/create-report">
+                    <ExclamationTriangleIcon /> Create Report
+                  </Link>
+                </Button>
+                {modules.modAgent && (
+                  <Button
+                    variant={
+                      pathname === "/panel/mod/legacy/reports"
+                        ? "solid"
+                        : "surface"
+                    }
+                    className="!justify-start"
+                    asChild
+                  >
+                    <Link href="/panel/mod/legacy/reports">
+                      <ReaderIcon /> Reports & Cases
+                    </Link>
+                  </Button>
+                )}
+                {modules.discoverAgent && (
+                  <Button
+                    variant={
+                      pathname === "/panel/mod/legacy/discover"
+                        ? "solid"
+                        : "surface"
+                    }
+                    className="!justify-start"
+                    asChild
+                  >
+                    <Link href="/panel/mod/legacy/discover">
+                      <GlobeIcon />
+                      Discover
+                    </Link>
+                  </Button>
+                )}
+              </>
             )}
-            {modules.discoverAgent && (
-              <Button
-                variant={
-                  pathname === "/panel/mod/legacy/discover"
-                    ? "solid"
-                    : "surface"
-                }
-                className="!justify-start"
-                asChild
-              >
-                <Link href="/panel/mod/legacy/discover">
-                  <GlobeIcon />
-                  Discover
-                </Link>
-              </Button>
-            )}
-            {/* <Button
-          variant={
-            pathname === "/panel/mod/legacy/inspect" ? "solid" : "surface"
-          }
-          className="!justify-start"
-          asChild
-        >
-          <Link href="/panel/mod/legacy/inspect">
-            <MagnifyingGlassIcon />
-            Search by ID
-          </Link>
-        </Button> */}
           </>
         )}
       </Flex>

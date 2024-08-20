@@ -28,12 +28,13 @@ export default async function Layout({
       <Sidebar
         modules={{
           hr: HR_EXISTS,
+          advancedPanel: MOD_EXISTS,
           modAgent: MOD_EXISTS && scopes["moderation.agent"],
           discoverAgent: MOD_EXISTS && scopes["moderation.discover"],
         }}
       />
 
-      <Flex direction="column" gap="2" grow="1" className={styles.content}>
+      <Flex direction="column" gap="2" flexGrow="1" className={styles.content}>
         {children}
       </Flex>
     </Flex>

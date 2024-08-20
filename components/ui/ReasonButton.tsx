@@ -15,7 +15,7 @@ export function ReasonButton({
     <Popover.Root>
       <Popover.Trigger>{children}</Popover.Trigger>
       <Popover.Content style={{ width: 360 }}>
-        <Box grow="1">
+        <Box flexGrow="1">
           <TextArea
             onChange={(e) => setReason(e.currentTarget.value)}
             placeholder="Write a reason…"

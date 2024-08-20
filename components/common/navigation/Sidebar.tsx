@@ -39,7 +39,13 @@ export function Sidebar({
   return (
     <div className="relative">
       <Flex gap="2" direction="column" className="w-[280px]">
-        <Image src="/wide.svg" className="h-8 m-4" alt="Logo" />
+        <Image
+          src="/wide.svg"
+          width={240}
+          height={32}
+          className="m-4"
+          alt="Logo"
+        />
         <AuthorisedUserCard />
 
         <Button

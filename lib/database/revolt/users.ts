@@ -9,6 +9,15 @@ export type RevoltUserInfo = Omit<RevoltUser, "relations"> & {
   };
 };
 
+export function isRestrictedUser(user: RevoltUser) {
+  if (
+    user._id === "01EX2NCWQ0CHS3QJF0FEQS1GR4" ||
+    user._id === process.env.PLATFORM_ACCOUNT_ID
+  )
+    return true;
+  return false;
+}
+
 /**
  * Generate Revolt user information as a smaller payload
  * @param user User

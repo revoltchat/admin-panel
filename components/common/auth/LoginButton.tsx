@@ -19,11 +19,11 @@ export function LoginButton() {
   const user = useAuthorisedUser(true);
   if (user) {
     return (
-      <Flex gap="4">
-        <Button className="flex-1" asChild>
+      <Flex gap="4" justify="center">
+        <Button asChild>
           <Link href="/panel">Dashboard</Link>
         </Button>
-        <Button color="ruby" className="flex-1" onClick={() => signOut()}>
+        <Button color="ruby" onClick={() => signOut()}>
           Log Out
         </Button>
       </Flex>

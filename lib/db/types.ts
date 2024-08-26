@@ -57,10 +57,28 @@ export type ChangeLogDocument = {
         type: "User";
         id: string;
       };
-    } & {
-      type: "user/export";
-      exportType: "law-enforcement";
-    })
+    } & (
+      | {
+          type: "user/strike";
+          id: string;
+          reason: string[];
+        }
+      | {
+          type: "user/suspend";
+          id: string;
+          duration: string;
+          reason: string[];
+        }
+      | {
+          type: "user/ban";
+          id: string;
+          reason: string[];
+        }
+      | {
+          type: "user/export";
+          exportType: "law-enforcement";
+        }
+    ))
   | ({
       object: {
         type: "Case";

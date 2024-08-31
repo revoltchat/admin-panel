@@ -18,6 +18,9 @@ export function fetchPeople() {
         projection: {
           approvalRequest: 0,
         },
+        sort: {
+          name: 1,
+        },
       },
     )
     .toArray();

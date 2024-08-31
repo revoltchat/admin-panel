@@ -3,13 +3,14 @@ export type Hr = {
     _id: string;
     name: string;
     email: string;
-    status: "Active" | "Pending" | "Inactive";
+    status: "Active" | "Pending" | "Inactive" | "Retired";
     positions: string[];
     roles: string[];
     approvalRequest?: {
       reason: string;
       requestee: string;
     };
+    notes?: string;
   };
   Position: {
     _id: string;

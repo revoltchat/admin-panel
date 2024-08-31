@@ -3,6 +3,7 @@
 import { getScopedUser } from "@/lib/auth";
 import { RBAC_PERMISSION_MODERATION_AGENT } from "@/lib/auth/rbacInternal";
 import { createChangelog } from "@/lib/core";
+import { suspendUser } from "@/lib/database/revolt";
 import { createOrFindDM } from "@/lib/database/revolt/channels";
 import { sendMessage } from "@/lib/database/revolt/messages";
 import { findCaseById } from "@/lib/database/revolt/safety_cases";
@@ -16,6 +17,7 @@ export async function strikeUser(
   caseId: string | undefined,
   duration: "7" | "14" | "indefinite",
 ) {
+  const userEmail = await getScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
   if (caseId && !(await findCaseById(caseId))) throw "Case doesn't exist?";
 
   const strike = await createStrike(
@@ -29,8 +31,7 @@ export async function strikeUser(
     caseId,
   );
 
-  const userEmail = await getScopedUser(RBAC_PERMISSION_MODERATION_AGENT);
-  await createChangelog(userEmail, {
+  const changelog = await createChangelog(userEmail, {
     object: {
       type: "User",
       id: userId,
@@ -55,6 +56,14 @@ export async function strikeUser(
           }),
   });
 
+  if (type === "suspension") {
+    await suspendUser(
+      userId,
+      duration === "indefinite" ? 0 : parseInt(duration),
+      reason,
+    );
+  }
+
   if (type !== "ban") {
     const channel = await createOrFindDM(
       userId,
@@ -78,5 +87,5 @@ export async function strikeUser(
     });
   }
 
-  return strike;
+  return { changelog, strike };
 }

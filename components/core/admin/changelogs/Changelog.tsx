@@ -20,6 +20,7 @@ import {
   PaperPlaneIcon,
   PlusIcon,
   TextIcon,
+  ValueNoneIcon,
 } from "@radix-ui/react-icons";
 import { Avatar, Badge, Card, Flex, Text } from "@radix-ui/themes";
 
@@ -218,6 +219,39 @@ const ChangeRenderer: Renderers = {
       </>
     ),
   }),
+  "user/strike": (change) => ({
+    type: "short",
+    icon: <ValueNoneIcon />,
+    color: "red",
+    description: (
+      <>
+        <Text color="plum">{change.userEmail}</Text> created a strike for{" "}
+        <Text color="blue">{change.reason.join(", ")}</Text>
+      </>
+    ),
+  }),
+  "user/suspend": (change) => ({
+    type: "short",
+    icon: <ValueNoneIcon />,
+    color: "red",
+    description: (
+      <>
+        <Text color="plum">{change.userEmail}</Text> suspended this user for{" "}
+        <Text color="blue">{change.reason.join(", ")}</Text>
+      </>
+    ),
+  }),
+  "user/ban": (change) => ({
+    type: "short",
+    icon: <ValueNoneIcon />,
+    color: "red",
+    description: (
+      <>
+        <Text color="plum">{change.userEmail}</Text> banned this user for{" "}
+        <Text color="blue">{change.reason.join(", ")}</Text>
+      </>
+    ),
+  }),
   "user/export": (change) => ({
     type: "short",
     icon: <ArchiveIcon />,
@@ -225,7 +259,7 @@ const ChangeRenderer: Renderers = {
     description: (
       <>
         <Text color="plum">{change.userEmail}</Text> created an export of{" "}
-        {change.exportType} type
+        <Text color="blue">{change.exportType}</Text> type
       </>
     ),
   }),

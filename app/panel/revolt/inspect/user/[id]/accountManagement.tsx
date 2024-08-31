@@ -12,10 +12,11 @@ export function ManageAccount({
   attempts: number;
 }) {
   return (
+    // TODO
     <Flex direction="row" gap="2">
-      <Button>Disable Account</Button>
-      <Button>Queue Deletion</Button>
-      <Button disabled={attempts === 0}>
+      <Button disabled>Disable Account</Button>
+      <Button disabled>Queue Deletion</Button>
+      <Button disabled={true || attempts === 0}>
         Reset Lockout {attempts > 0 && <>({attempts} failed attempts)</>}
       </Button>
     </Flex>

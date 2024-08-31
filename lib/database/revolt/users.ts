@@ -1,6 +1,7 @@
+import Revolt from "revolt-nodejs-bindings";
 import { API } from "revolt.js";
 
-import { createCollectionFn } from "..";
+import { callProcedure, createCollectionFn } from "..";
 
 export type RevoltUser = API.User;
 export type RevoltUserInfo = Omit<RevoltUser, "relations"> & {
@@ -41,4 +42,25 @@ const userCol = createCollectionFn<RevoltUser>("revolt", "users");
  */
 export function fetchUserById(id: string) {
   return userCol().findOne({ _id: id });
+}
+
+/**
+ * Suspend user by given ID
+ * @param userId User ID
+ * @param duration Duration (in days), set to 0 for indefinite
+ * @param reasons Reasons
+ */
+export async function suspendUser(
+  userId: string,
+  duration: number,
+  reasons: string[],
+) {
+  let user = await callProcedure(Revolt.database_fetch_user, userId);
+
+  await callProcedure(
+    Revolt.proc_users_suspend,
+    user,
+    duration,
+    reasons.join("|"),
+  );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { consumeChangelog } from "@/components/core/admin/changelogs/helpers";
 import { Strike } from "@/lib/database/revolt/safety_strikes";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -76,7 +77,16 @@ export function UserStrikeActions({
       if (type === "ban" && !confirm)
         return alert("Not banning, check the confirmation checkbox!");
 
-      const strike = await strikeUser(id, type, reason, context, caseId, days);
+      const { changelog, strike } = await strikeUser(
+        id,
+        type,
+        reason,
+        context,
+        caseId,
+        days,
+      );
+
+      consumeChangelog(changelog);
       addStrike?.(strike);
 
       if (type === "suspension") {
@@ -224,7 +234,10 @@ export function UserStrikeActions({
         <AlertDialog.Trigger>
           <Button
             color="red"
-            disabled={mutation.isPending || actualFlags === USER_FLAG_BANNED}
+            // TODO
+            disabled={
+              true || mutation.isPending || actualFlags === USER_FLAG_BANNED
+            }
           >
             {actualFlags === USER_FLAG_BANNED ? "Banned" : "Ban"}
           </Button>

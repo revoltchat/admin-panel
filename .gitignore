@@ -39,6 +39,9 @@ next-env.d.ts
 client.crt
 client.key
 
+# backend related files
+Revolt.toml
+
 # local files
 exports/*
 !exports/.gitkeep

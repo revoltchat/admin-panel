@@ -1,8 +1,7 @@
-import { publishPrivate } from "@/lib/events";
+import Revolt from "revolt-nodejs-bindings";
 import { API } from "revolt.js";
-import { ulid } from "ulid";
 
-import { createCollectionFn } from "..";
+import { callProcedure, createCollectionFn } from "..";
 
 export type RevoltChannel = API.Channel;
 
@@ -15,27 +14,5 @@ const channelCol = createCollectionFn<RevoltChannel>("revolt", "channels");
  * @returns DM Channel
  */
 export async function createOrFindDM(userA: string, userB: string) {
-  let dm = await channelCol().findOne({
-    channel_type: "DirectMessage",
-    recipients: { $all: [userA, userB] },
-  });
-
-  if (!dm) {
-    dm = {
-      _id: ulid(),
-      channel_type: "DirectMessage",
-      active: true,
-      recipients: [userA, userB],
-    };
-
-    await channelCol().insertOne(dm);
-
-    for (const user of [userA, userB])
-      await publishPrivate(user, {
-        type: "ChannelCreate",
-        ...dm,
-      });
-  }
-
-  return dm;
+  return callProcedure(Revolt.proc_channels_create_dm, userA, userB);
 }

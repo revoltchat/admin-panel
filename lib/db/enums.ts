@@ -58,9 +58,9 @@ export const TYPES_VALID_CATEGORY_KEYS = Object.keys(
 ).toSorted() as (keyof typeof TYPES_VALID_CATEGORY)[];
 
 export function reportCategoryTemplateResolutionResponse(
-  key: CaseDocument["category"],
+  key?: CaseDocument["category"],
 ) {
-  switch (key[0]) {
+  switch (key?.[0]) {
     case "Invalid":
       return "These report(s) are invalid and no further action can be taken at this time.\nThis may be because:\n- No platform rules are being broken\n- The report doesn't make any sense\n- The reason provided doesn't apply to the content reported";
     case "False":
@@ -80,8 +80,7 @@ export function reportCategoryTemplateResolutionResponse(
     case "Ignore":
       return "-no valid response-";
     default:
-      if (key.length === 0) return "-no category selected-";
-
+      if (!key || key.length === 0) return "-no category selected-";
       return "Report(s) have been actioned and appropriate action has been taken.";
   }
 }

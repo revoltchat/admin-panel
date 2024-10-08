@@ -78,11 +78,12 @@ export async function strikeUser(
         ...reason.map((r) => `- ${r}`),
         "",
         type === "suspension"
-          ? "Further violations may result in a permanent ban depending on severity, please abide by the Acceptable Usage Policy."
+          ? "Further violations may result in a permanent ban depending on severity, please abide by the [Acceptable Usage Policy](https://revolt.chat/aup)."
           : "Further violations will result in suspension or a permanent ban depending on severity, please abide by the [Acceptable Usage Policy](https://revolt.chat/aup).",
         ...(caseId
           ? ["", `Case ID for your reference: **${caseId.substring(18)}**`]
           : ""),
+        "If you have further questions about this strike, please contact abuse@revolt.chat",
       ].join("\n"),
     });
   }

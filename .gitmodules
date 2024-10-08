@@ -16,4 +16,3 @@
 [submodule "app/panel/mod"]
 	path = app/panel/mod
 	url = https://git.is.horse/revolt/research-development/panel-modern
-	update = none

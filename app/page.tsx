@@ -1,12 +1,12 @@
 import { LoginButton } from "@/components/common/auth/LoginButton";
 import { Metadata } from "next";
-import { Comic_Neue } from "next/font/google";
+import { Sixtyfour_Convergence } from "next/font/google";
 
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 
 import styles from "./home.module.css";
 
-const comicNeue = Comic_Neue({ subsets: ["latin"], weight: "700" });
+const sixtyfourConvergence = Sixtyfour_Convergence({ subsets: ["latin"], weight: "700" });
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
     >
       <Card className="p-4">
         <Flex direction="column" gap="4">
-          <Heading as="h1" size="8" className={comicNeue.className}>
+          <Heading as="h1" size="8" className={sixtyfourConvergence.className}>
             Revolt Admin Panel
           </Heading>
 
